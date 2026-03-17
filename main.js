@@ -82,15 +82,15 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
-// --- FIX: Pause Lenis when scrolling inside the chatbot window ---
-// This prevents Lenis from hijacking wheel events inside the chat message list
+// --- FIX: Completely isolate Chatbot Scroll from Lenis ---
+// Simply stopping Lenis on hover isn't enough because Lenis listens globally.
+// We must stop the wheel and touch events from ever reaching Lenis.
 const chatMsgArea = document.getElementById('chat-messages');
 if (chatMsgArea) {
-    chatMsgArea.addEventListener('mouseenter', () => lenis.stop());
-    chatMsgArea.addEventListener('mouseleave', () => lenis.start());
-    // For touch devices
-    chatMsgArea.addEventListener('touchstart', () => lenis.stop(), { passive: true });
-    chatMsgArea.addEventListener('touchend',   () => lenis.start(), { passive: true });
+    const stopProp = (e) => e.stopPropagation();
+    chatMsgArea.addEventListener('wheel', stopProp, { passive: false });
+    chatMsgArea.addEventListener('touchstart', stopProp, { passive: false });
+    chatMsgArea.addEventListener('touchmove', stopProp, { passive: false });
 }
 
 // ============================================

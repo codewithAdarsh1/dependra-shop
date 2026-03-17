@@ -1194,6 +1194,7 @@ canvas {
     background: #fafafa;
     scrollbar-width: thin;
     scrollbar-color: #e0e0e0 transparent;
+    overscroll-behavior: contain;
 }
 
 .chat-msg {
