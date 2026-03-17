@@ -53,7 +53,7 @@ const canvas = document.getElementById("hero-canvas");
 const context = canvas.getContext("2d");
 
 const frameCount = 192;
-const currentFrame = i => `phone-sequence-img/${(i + 1).toString().padStart(5, '0')}.png`;
+const currentFrame = i => `phone-sequence-img/${(i + 1).toString().padStart(5, '0')}.jpg`;
 
 const images = [];
 const phoneSequence = { frame: 0 };
