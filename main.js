@@ -82,6 +82,17 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
+// --- FIX: Pause Lenis when scrolling inside the chatbot window ---
+// This prevents Lenis from hijacking wheel events inside the chat message list
+const chatMsgArea = document.getElementById('chat-messages');
+if (chatMsgArea) {
+    chatMsgArea.addEventListener('mouseenter', () => lenis.stop());
+    chatMsgArea.addEventListener('mouseleave', () => lenis.start());
+    // For touch devices
+    chatMsgArea.addEventListener('touchstart', () => lenis.stop(), { passive: true });
+    chatMsgArea.addEventListener('touchend',   () => lenis.start(), { passive: true });
+}
+
 // ============================================
 //  GSAP SETUP
 // ============================================
@@ -112,6 +123,93 @@ document.querySelectorAll('.reveal-up').forEach((el) => {
             scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reverse" }
         }
     );
+});
+
+// ============================================
+//  MICRO-INTERACTIONS — Awwwards Level
+// ============================================
+
+// 1. Service card 3D magnetic tilt on hover
+document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        gsap.to(card, {
+            rotateX: -dy * 8,
+            rotateY: dx * 8,
+            duration: 0.4,
+            ease: 'power2.out',
+            transformPerspective: 800,
+        });
+    });
+    card.addEventListener('mouseleave', () => {
+        gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' });
+    });
+});
+
+// 2. Magnetic pull on primary buttons
+document.querySelectorAll('.btn-primary, .btn-whatsapp').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const dx = e.clientX - (rect.left + rect.width / 2);
+        const dy = e.clientY - (rect.top + rect.height / 2);
+        gsap.to(btn, {
+            x: dx * 0.25,
+            y: dy * 0.25,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+    });
+    btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' });
+    });
+});
+
+// 3. Service icon pulse on card hover
+document.querySelectorAll('.service-card').forEach(card => {
+    const icon = card.querySelector('.service-icon-large');
+    if (!icon) return;
+    card.addEventListener('mouseenter', () => {
+        gsap.fromTo(icon,
+            { scale: 1 },
+            { scale: 1.15, duration: 0.3, ease: 'back.out(2)' }
+        );
+    });
+    card.addEventListener('mouseleave', () => {
+        gsap.to(icon, { scale: 1, duration: 0.4, ease: 'power2.out' });
+    });
+});
+
+// 4. Stats count-up when scrolled into view
+const statVals = document.querySelectorAll('.stat-val');
+statVals.forEach(el => {
+    const rawText = el.textContent.trim();
+    const numMatch = rawText.match(/(\d+)/);
+    if (!numMatch) return;
+    const endVal = parseInt(numMatch[1]);
+    const suffix = rawText.replace(numMatch[1], '').trim();
+    el.textContent = '0';
+    ScrollTrigger.create({
+        trigger: el,
+        start: 'top 90%',
+        once: true,
+        onEnter: () => {
+            gsap.fromTo({ val: 0 },
+                { val: endVal },
+                {
+                    val: endVal,
+                    duration: 1.8,
+                    ease: 'power2.out',
+                    onUpdate: function () {
+                        el.textContent = Math.round(this.targets()[0].val) + suffix;
+                    }
+                }
+            );
+        }
+    });
 });
 
 
