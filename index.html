@@ -107,6 +107,9 @@
     }
     </script>
 
+    <!-- ===== PRELOAD CRITICAL ASSETS ===== -->
+    <link rel="preload" as="image" href="phone-sequence-img/00001.webp">
+
     <!-- ===== FONTS ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -146,9 +149,35 @@
         <p>Price range: NPR 500 to NPR 15,000. We accept cash and mobile payments.</p>
         <p>WhatsApp: +977 981-3901303. We serve customers across Biratnagar, Itahari, and all of Koshi Province, Nepal.</p>
     </div>
+    <!-- ============================================
+         AWWWARDS LOADING SCREEN
+    ============================================ -->
+    <div id="page-loader">
+        <div class="loader-inner">
+            <div class="loader-brand">
+                <span class="loader-brand-main">DIPENDRA</span>
+                <div class="loader-ticker-wrap">
+                    <div class="loader-ticker">
+                        <span>REPAIR &nbsp;&nbsp;—&nbsp;&nbsp;</span>
+                        <span>RESTORE &nbsp;&nbsp;—&nbsp;&nbsp;</span>
+                        <span>RECOVER &nbsp;&nbsp;—&nbsp;&nbsp;</span>
+                        <span>REPAIR &nbsp;&nbsp;—&nbsp;&nbsp;</span>
+                        <span>RESTORE &nbsp;&nbsp;—&nbsp;&nbsp;</span>
+                        <span>RECOVER &nbsp;&nbsp;—&nbsp;&nbsp;</span>
+                    </div>
+                </div>
+            </div>
+            <div class="loader-bottom">
+                <div class="loader-progress-bar">
+                    <div class="loader-progress-fill" id="loader-fill"></div>
+                </div>
+                <span class="loader-percent" id="loader-percent">0%</span>
+            </div>
+        </div>
+        <div class="loader-wipe" id="loader-wipe"></div>
+    </div>
 
 
-    <main role="main" itemscope itemtype="https://schema.org/WebPage">
         <!-- Hero Section -->
         <section class="hero" id="home">
             <div class="hero-canvas-container">

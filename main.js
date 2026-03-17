@@ -1,4 +1,69 @@
 // ============================================
+//  AWWWARDS LOADING SCREEN
+// ============================================
+(function () {
+    const loader = document.getElementById('page-loader');
+    const fill = document.getElementById('loader-fill');
+    const percentEl = document.getElementById('loader-percent');
+    const wipe = document.getElementById('loader-wipe');
+    document.body.classList.add('loading');
+
+    let progress = 0;
+    const duration = 3600; // ms
+    const interval = 30;   // tick rate
+    const steps = duration / interval;
+    let tick = 0;
+
+    // Ease-out progress curve
+    function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+    }
+
+    const counter = setInterval(() => {
+        tick++;
+        const t = tick / steps;
+        const easedProgress = Math.min(easeOut(t) * 100, 99);
+        fill.style.width = easedProgress + '%';
+        percentEl.textContent = Math.floor(easedProgress) + '%';
+        if (tick >= steps) clearInterval(counter);
+    }, interval);
+
+    function finishLoader() {
+        fill.style.width = '100%';
+        percentEl.textContent = '100%';
+        clearInterval(counter);
+
+        // Wipe transition
+        setTimeout(() => {
+            gsap.to(wipe, {
+                scaleX: 1,
+                duration: 0.5,
+                ease: 'power3.inOut',
+                onComplete: () => {
+                    gsap.to(loader, {
+                        opacity: 0,
+                        duration: 0.3,
+                        onComplete: () => {
+                            loader.style.display = 'none';
+                            document.body.classList.remove('loading');
+                            // Refresh ScrollTrigger after loader dismissed
+                            if (window.ScrollTrigger) ScrollTrigger.refresh();
+                        }
+                    });
+                }
+            });
+        }, 300);
+    }
+
+    // Dismiss after 4 seconds max
+    setTimeout(finishLoader, 4000);
+    // Or when window fires load event (whichever is later)
+    window.addEventListener('load', () => {
+        setTimeout(finishLoader, 200);
+    });
+}());
+
+// ============================================
 //  LENIS SMOOTH SCROLL
 // ============================================
 const lenis = new Lenis({
@@ -22,11 +87,15 @@ requestAnimationFrame(raf);
 // ============================================
 gsap.registerPlugin(ScrollTrigger);
 
-// Sticky header
+// Sticky header via Intersection Observer (no scroll event needed)
 const header = document.querySelector('.header');
-window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 20);
-});
+const sentinelEl = document.createElement('div');
+sentinelEl.style.cssText = 'position:absolute;top:80px;height:1px;width:1px;pointer-events:none;';
+document.body.prepend(sentinelEl);
+new IntersectionObserver(
+    ([entry]) => header.classList.toggle('scrolled', !entry.isIntersecting),
+    { threshold: 0 }
+).observe(sentinelEl);
 
 // Hero entry animation
 gsap.fromTo('.fade-up',
@@ -53,7 +122,7 @@ const canvas = document.getElementById("hero-canvas");
 const context = canvas.getContext("2d");
 
 const frameCount = 192;
-const currentFrame = i => `phone-sequence-img/${(i + 1).toString().padStart(5, '0')}.jpg`;
+const currentFrame = i => `phone-sequence-img/${(i + 1).toString().padStart(5, '0')}.webp`;
 
 const images = [];
 const phoneSequence = { frame: 0 };

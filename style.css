@@ -57,6 +57,136 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* ============================================
+   AWWWARDS LOADING SCREEN
+============================================ */
+#page-loader {
+    position: fixed;
+    inset: 0;
+    background: #0a0a0a;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    pointer-events: all;
+}
+
+.loader-inner {
+    width: 100%;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.loader-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.loader-brand-main {
+    font-family: var(--heading-font);
+    font-size: clamp(4rem, 12vw, 10rem);
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    display: block;
+}
+
+.loader-ticker-wrap {
+    overflow: hidden;
+    height: 2.5rem;
+}
+
+.loader-ticker {
+    display: flex;
+    gap: 1.5rem;
+    white-space: nowrap;
+    animation: ticker-scroll 6s linear infinite;
+}
+
+.loader-ticker span {
+    font-family: var(--body-font);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    flex-shrink: 0;
+}
+
+@keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.loader-bottom {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.loader-progress-bar {
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+    position: relative;
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.loader-progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: #ffffff;
+    transition: width 0.1s ease;
+}
+
+.loader-percent {
+    font-family: var(--body-font);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    flex-shrink: 0;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* The white wipe that reveals the page */
+.loader-wipe {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    transform: scaleX(0);
+    transform-origin: left center;
+    z-index: 1;
+}
+
+/* Page hidden until loader is done */
+body.loading {
+    overflow: hidden;
+}
+
+/* ============================================
+   GPU ACCELERATION — All animated elements
+============================================ */
+.reveal-up, .fade-up, #hero-canvas, .service-card, .hero-text-overlay {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
 .container {
     max-width: 1400px;
     margin: 0 auto;
