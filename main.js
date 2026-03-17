@@ -129,28 +129,7 @@ document.querySelectorAll('.reveal-up').forEach((el) => {
 //  MICRO-INTERACTIONS — Awwwards Level
 // ============================================
 
-// 1. Service card 3D magnetic tilt on hover
-document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const dx = (e.clientX - cx) / (rect.width / 2);
-        const dy = (e.clientY - cy) / (rect.height / 2);
-        gsap.to(card, {
-            rotateX: -dy * 8,
-            rotateY: dx * 8,
-            duration: 0.4,
-            ease: 'power2.out',
-            transformPerspective: 800,
-        });
-    });
-    card.addEventListener('mouseleave', () => {
-        gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' });
-    });
-});
-
-// 2. Magnetic pull on primary buttons
+// Magnetic pull on primary buttons
 document.querySelectorAll('.btn-primary, .btn-whatsapp').forEach(btn => {
     btn.addEventListener('mousemove', (e) => {
         const rect = btn.getBoundingClientRect();
@@ -168,22 +147,7 @@ document.querySelectorAll('.btn-primary, .btn-whatsapp').forEach(btn => {
     });
 });
 
-// 3. Service icon pulse on card hover
-document.querySelectorAll('.service-card').forEach(card => {
-    const icon = card.querySelector('.service-icon-large');
-    if (!icon) return;
-    card.addEventListener('mouseenter', () => {
-        gsap.fromTo(icon,
-            { scale: 1 },
-            { scale: 1.15, duration: 0.3, ease: 'back.out(2)' }
-        );
-    });
-    card.addEventListener('mouseleave', () => {
-        gsap.to(icon, { scale: 1, duration: 0.4, ease: 'power2.out' });
-    });
-});
-
-// 4. Stats count-up when scrolled into view
+// Stats count-up when scrolled into view
 const statVals = document.querySelectorAll('.stat-val');
 statVals.forEach(el => {
     const rawText = el.textContent.trim();
@@ -411,10 +375,13 @@ Your goals:
    - Water damage recovery: Rs. 1,500 – Rs. 4,000
    - Laptop screen: Rs. 3,500 – Rs. 12,000
    - Laptop motherboard: Rs. 2,000 – Rs. 15,000
-   - Software / virus removal: Rs. 500 – Rs. 1,500
+   - Software formatting / OS install / Virus removal: Rs. 500 – Rs. 1,500
 4. Always end by inviting them to call or WhatsApp: +977 981-3901303. We are open 24/7 so reassure them there's no need to wait until morning.
 
-Keep responses short (max 3 short paragraphs). Be direct and conversational. Never say you cannot help.`;
+IMPORTANT RULES:
+- We handle BOTH hardware issues and complex software issues (like FRP bypass, flashing ROMs, virus removals, OS installs).
+- Advise them to bring the device in for any complicated software work so our experts can handle it safely.
+- Keep responses short (max 3 short paragraphs). Be direct and conversational. Never say you cannot help.`;
 
 let chatHistory = []; // stores { role, content } for context
 const chatMessages = document.getElementById('chat-messages');
