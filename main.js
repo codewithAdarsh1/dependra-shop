@@ -357,6 +357,36 @@ document.getElementById('open-gallery-btn').addEventListener('click', () => {
 
 
 // ============================================
+//  FAQ ACCORDION
+// ============================================
+document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+        const item = button.parentElement;
+        const answer = button.nextElementSibling;
+        
+        // Close all other open FAQs
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+                otherItem.classList.remove('active');
+                otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+        });
+
+        // Toggle current FAQ
+        item.classList.toggle('active');
+        if (item.classList.contains('active')) {
+            answer.style.maxHeight = answer.scrollHeight + "px";
+        } else {
+            answer.style.maxHeight = null;
+        }
+        
+        // Refresh ScrollTrigger to recalculate page height for animations
+        setTimeout(() => ScrollTrigger.refresh(), 500);
+    });
+});
+
+
+// ============================================
 //  GROQ AI CHATBOT — RescueBot
 // ============================================
 const GROQ_API_KEY = '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';
