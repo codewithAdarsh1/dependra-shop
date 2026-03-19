@@ -21,7 +21,7 @@ export default {
         if (request.method === "OPTIONS") {
             return new Response(null, {
                 headers: {
-                    "Access-Control-Allow-Origin": "*", // Or lock it to "https://dipendrarepair.com.np"
+                    "Access-Control-Allow-Origin": "*", // Or lock it to "https://dipendraelectronic.com.np"
                     "Access-Control-Allow-Methods": "POST, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type",
                 }
