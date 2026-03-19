@@ -24,4 +24,4 @@ User-agent: anthropic-ai
 Allow: /
 
 # Sitemap location
-Sitemap: https://dipendrarepair.com/sitemap.xml
+Sitemap: https://dipendrarepair.com.np/sitemap.xml

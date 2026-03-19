@@ -391,7 +391,7 @@ document.querySelectorAll('.faq-question').forEach(button => {
 // ============================================
 // 🛑 SECURITY UPDATE: API key moved to Cloudflare Worker to protect it from being stolen
 // REPLACE the below URL with your actual deployed Worker URL (see cloudflare-worker-proxy.js instructions)
-const GROQ_PROXY_URL = 'https://groq-proxy.YOUR_USERNAME.workers.dev';
+const GROQ_PROXY_URL = 'https://techmate.dipendra-electronic.workers.dev';
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
 const SYSTEM_PROMPT = `You are TechMate, the expert AI repair advisor for Dipendra Electronic, located at Biratnagar 56613, Nepal. You operate 24/7, 365 days a year.
