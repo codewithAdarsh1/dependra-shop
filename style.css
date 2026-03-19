@@ -91,7 +91,7 @@ body {
 
 .loader-brand-main {
     font-family: var(--heading-font);
-    font-size: clamp(4rem, 12vw, 10rem);
+    font-size: clamp(2.5rem, 10vw, 10rem);
     font-weight: 700;
     color: #ffffff;
     letter-spacing: -0.04em;
@@ -386,6 +386,10 @@ h1, h2, h3, h4, h5 {
 @media (max-width: 900px) {
     .nav-links { display: none; }
     .btn-primary { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
+}
+
+.emergency-btn-icon {
+    display: none;
 }
 
 /* Float WhatsApp removed — integrated into contact card */
@@ -1665,9 +1669,23 @@ canvas {
     .emergency-btn-text {
         display: none;
     }
+    .emergency-btn-icon {
+        display: inline-block;
+        font-size: 1.1rem;
+    }
+    .header {
+        padding: 1rem 0;
+    }
     .btn-primary {
-        padding: 0.6rem 1rem;
-        font-size: 0.8rem;
+        padding: 0.6rem;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        justify-content: center;
+    }
+    .pulse-dot {
+        margin-right: 0;
+        display: none; /* Hide pulse dot to save space inside the circle button */
     }
     .logo {
         font-size: 1.1rem;

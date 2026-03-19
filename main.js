@@ -390,7 +390,7 @@ document.querySelectorAll('.faq-question').forEach(button => {
 //  GROQ AI CHATBOT — RescueBot
 // ============================================
 // 🛑 SECURITY UPDATE: API key moved to Cloudflare Worker to protect it from being stolen
-// REPLACE the below URL with your actual deployed Worker URL (see cloudflare-worker-proxy.js instructions)
+// Worker URL Note: If Cloudflare worker is renamed to remove the hyphen, update this constant!
 const GROQ_PROXY_URL = 'https://techmate.dipendra-electronic.workers.dev';
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
