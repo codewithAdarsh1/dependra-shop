@@ -253,13 +253,13 @@ heroTl
 //  SHOP IMAGE DATA (all 7 photos)
 // ============================================
 const shopImages = [
-    { src: "shop img/1488367e-0ea3-4331-80d4-a06d7a14b035.jpg", caption: "Main Workshop — Dipendra Repair Lab" },
-    { src: "shop img/324c6b9e-6af9-4126-bc74-264772ed2b69.jpg", caption: "Precision Workstation" },
-    { src: "shop img/41c820a4-ed6c-4d31-a794-e16dbf137c43.jpg", caption: "Component Level Diagnostics" },
-    { src: "shop img/72c5b25b-a775-4858-9a85-4862fe7e3aa5.jpg", caption: "Tools of the Trade" },
-    { src: "shop img/c5a7acf8-79da-4f0a-a3e6-64963d121a43.jpg", caption: "Professional Lab Environment" },
-    { src: "shop img/ea28babe-3606-4212-b0af-d9428e1e6a74.jpg", caption: "Customer Repair Intake" },
-    { src: "shop img/eba85172-48ba-4cc1-81d5-1d6673a556ca.jpg", caption: "Late Night Operations — 24/7" },
+    { src: "shop-img/1488367e-0ea3-4331-80d4-a06d7a14b035.jpg", caption: "Main Workshop — Dipendra Repair Lab" },
+    { src: "shop-img/324c6b9e-6af9-4126-bc74-264772ed2b69.jpg", caption: "Precision Workstation" },
+    { src: "shop-img/41c820a4-ed6c-4d31-a794-e16dbf137c43.jpg", caption: "Component Level Diagnostics" },
+    { src: "shop-img/72c5b25b-a775-4858-9a85-4862fe7e3aa5.jpg", caption: "Tools of the Trade" },
+    { src: "shop-img/c5a7acf8-79da-4f0a-a3e6-64963d121a43.jpg", caption: "Professional Lab Environment" },
+    { src: "shop-img/ea28babe-3606-4212-b0af-d9428e1e6a74.jpg", caption: "Customer Repair Intake" },
+    { src: "shop-img/eba85172-48ba-4cc1-81d5-1d6673a556ca.jpg", caption: "Late Night Operations — 24/7" },
 ];
 
 // ============================================
@@ -389,7 +389,9 @@ document.querySelectorAll('.faq-question').forEach(button => {
 // ============================================
 //  GROQ AI CHATBOT — RescueBot
 // ============================================
-const GROQ_API_KEY = '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';
+// 🛑 SECURITY UPDATE: API key moved to Cloudflare Worker to protect it from being stolen
+// REPLACE the below URL with your actual deployed Worker URL (see cloudflare-worker-proxy.js instructions)
+const GROQ_PROXY_URL = 'https://groq-proxy.YOUR_USERNAME.workers.dev';
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
 const SYSTEM_PROMPT = `You are TechMate, the expert AI repair advisor for Dipendra Electronic, located at Biratnagar 56613, Nepal. You operate 24/7, 365 days a year.
@@ -469,11 +471,11 @@ async function sendMessage() {
     showTypingIndicator();
 
     try {
-        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        // Send chat securely to the Cloudflare Worker instead of directly to Groq
+        const response = await fetch(GROQ_PROXY_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${GROQ_API_KEY}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 model: GROQ_MODEL,
