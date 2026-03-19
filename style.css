@@ -517,6 +517,82 @@ canvas {
     flex: 1;
 }
 
+/* --- Compact Services Component (New Architecture) --- */
+.services-divider {
+    text-align: center;
+    margin: 4rem 0 3rem;
+    position: relative;
+}
+.services-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border-light);
+    z-index: 1;
+}
+.services-divider span {
+    background: var(--bg-main);
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+}
+
+.compact-services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.compact-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+}
+.compact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+    background: #ffffff;
+}
+.compact-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--bg-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    flex-shrink: 0;
+    border: 1px solid var(--border-light);
+}
+.compact-info h4 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+}
+.compact-info p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+}
+
 /* About / Stats & Imagery */
 .about-grid {
     display: flex;
@@ -1654,3 +1730,7 @@ a, button {
         color: black;
     }
 }
+
+/* --- Responsive adjustments for compact grid --- */
+@media (max-width: 992px) { .compact-services-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .compact-services-grid { grid-template-columns: 1fr; } }
